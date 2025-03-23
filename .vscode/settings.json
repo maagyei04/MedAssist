@@ -1,0 +1,7 @@
+{
+  "editor.hover.above": true,
+  "editor.formatOnSave": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2
+}
