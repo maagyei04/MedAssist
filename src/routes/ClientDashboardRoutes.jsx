@@ -5,7 +5,7 @@ import Dashboard from '../components/layouts/clientDashboard';
 
 const DashboardDefault = Loadable(lazy(() => import('../pages/dashboard/client_dashboard/pages')));
 const Orders = Loadable(lazy(() => import('../pages/dashboard/client_dashboard/pages/orders')));
-const Finance = Loadable(lazy(() => import('../pages/dashboard/client_dashboard/pages/financial')));
+const Chatbot = Loadable(lazy(() => import('../pages/dashboard/client_dashboard/pages/chat')));
 const Profile = Loadable(lazy(() => import('../pages/dashboard/client_dashboard/pages/profile')));
 
 
@@ -22,8 +22,8 @@ const ClientDashboardLayout = {
             element: <Orders />
         },
         {
-            path: '/client_dashboard/financial_history',
-            element: <Finance />
+            path: '/client_dashboard/chat',
+            element: <Chatbot />
         },
         {
             path: '/client_dashboard/profile',

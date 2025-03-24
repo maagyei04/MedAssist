@@ -8,7 +8,7 @@ const icons = {
   SearchOutlined,
   CreditCardOutlined,
   ShoppingOutlined,
-  ShoppingCartOutlined
+  ShoppingCartOutlined,
 };
 
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
@@ -27,18 +27,26 @@ const dashboard = {
       breadcrumbs: false
     },
     {
-      id: 'orders',
-      title: 'Orders',
+      id: 'chat',
+      title: 'ChatBot Screen',
       type: 'item',
-      url: '/client_dashboard/orders',
-      icon: icons.ShoppingCartOutlined,
+      url: '/client_dashboard/chat',
+      icon: icons.CreditCardOutlined,
       breadcrumbs: false
     },
     {
-      id: 'financial',
-      title: 'Financial History',
+      id: 'symptom',
+      title: 'Symptom Checker',
       type: 'item',
-      url: '/client_dashboard/financial_history',
+      url: '/client_dashboard/symptom',
+      icon: icons.CreditCardOutlined,
+      breadcrumbs: false
+    },
+    {
+      id: 'medical',
+      title: 'Medication Info',
+      type: 'item',
+      url: '/client_dashboard/medical',
       icon: icons.CreditCardOutlined,
       breadcrumbs: false
     },
@@ -52,5 +60,6 @@ const dashboard = {
     }
   ]
 };
+
 
 export default dashboard;
