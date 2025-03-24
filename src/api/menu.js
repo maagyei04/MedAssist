@@ -22,7 +22,7 @@ export function useGetMenuMaster() {
     revalidateOnReconnect: false
   });
 
-  const memoizedValue = useMemo(
+  const memoizedValue = useMemo( 
     () => ({
       menuMaster: data,
       menuMasterLoading: isLoading

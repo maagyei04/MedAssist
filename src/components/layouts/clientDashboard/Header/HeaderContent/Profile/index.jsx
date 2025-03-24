@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { useRef, useState, useEffect } from 'react';
 import { useAuth } from '../../../../../../contexts/authContext';
-import { fetchClientData } from '../../../../../../stores/actions';
 import { LogoutUser } from '../../../../../../services/firebase/auth';
 import { useNavigate } from 'react-router-dom'
 
@@ -26,7 +25,6 @@ import Transitions from '../../../../../../components/common/@extended/Transitio
 
 // assets
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
-import avatar1 from '../../../../../../assets/images/artisan.png';
 
 function TabPanel({ children, value, index, ...other }) {
   return (
@@ -48,17 +46,6 @@ export default function Profile() {
   const [userData, setUserData] = useState(null);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const getClientData = async () => {
-      if (userLoggedIn && currentUser?.uid) {
-        const clientData = await fetchClientData(currentUser.uid);
-        setUserData(clientData);
-      }
-    };
-
-    getClientData();
-  }, [userLoggedIn, currentUser]);
 
   const theme = useTheme();
 
@@ -106,7 +93,7 @@ export default function Profile() {
         <Stack direction="row" spacing={1.25} alignItems="center" sx={{ p: 0.5 }}>
           <Avatar alt="profile user" src={userData ? userData.profilePic : ''} size="sm" />
           <Typography variant="subtitle1" sx={{ textTransform: 'capitalize' }}>
-            {userData ? userData.firstName + ' ' + userData.lastName : 'Loading...'}
+            Hi!
           </Typography>
         </Stack>
       </ButtonBase>
@@ -139,7 +126,7 @@ export default function Profile() {
                         <Stack direction="row" spacing={1.25} alignItems="center">
                           <Avatar alt="profile user" src={userData ? userData.profilePic : ''} sx={{ width: 32, height: 32 }} />
                           <Stack>
-                            <Typography variant="h6">{userData ? userData.firstName + ' ' + userData.lastName : 'Loading...'}</Typography>
+                            <Typography variant="h6">Hi!</Typography>
                             <Typography variant="body2" color="text.secondary">
                               {userData ? userData.userType : 'Loading...'}
                             </Typography>

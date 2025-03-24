@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { Outlet } from 'react-router-dom';
 
 // material-ui
@@ -23,10 +23,13 @@ export default function DashboardLayout() {
   const { menuMasterLoading } = useGetMenuMaster();
   const downXL = useMediaQuery((theme) => theme.breakpoints.down('xl'));
 
-  useEffect(() => {
+  const handleDrawer = useCallback(() => {
     handlerDrawerOpen(!downXL);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [downXL]);
+
+  useEffect(() => {
+    handleDrawer();
+  }, [handleDrawer]);
 
   if (menuMasterLoading) return <Loader />;
 

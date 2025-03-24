@@ -1,12 +1,12 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+//import React from 'react';
+import { useNavigate } from 'react-router-dom'
 
 const NotFound = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const handleGoToHomepage = () => {
-        navigate('/');
-    };
+        navigate('/')
+    }
 
     return (
         <div style={styles.container}>
@@ -18,8 +18,8 @@ const NotFound = () => {
                 </button>
             </div>
         </div>
-    );
-};
+    )
+}
 
 const styles = {
     container: {
@@ -49,6 +49,6 @@ const styles = {
         borderRadius: '5px',
         cursor: 'pointer',
     },
-};
+}
 
-export default NotFound;
+export default NotFound

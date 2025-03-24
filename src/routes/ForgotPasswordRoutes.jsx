@@ -1,18 +1,18 @@
-import Layout from "../components/layouts/AdminLayout";
+import AdminLayout from "../components/layouts/AdminLayout";
 
-import PasswordReset from "../pages/login/password_reset";
+import Home from "../pages/main/Home";
 
 const ForgotPasswordRoutes = {
     path: '/forgot-password',
-    element: <Layout />,
+    element: <AdminLayout />,
     children: [
         {
             path: '/forgot-password',
-            element: <PasswordReset />,
+            element: <Home />,
         },
         {
             path: 'default',
-            element: <PasswordReset />,
+            element: <Home />,
         },
     ]
 }

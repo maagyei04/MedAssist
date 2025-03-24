@@ -1,8 +1,8 @@
 import Layout from "../components/layouts/BasicLayout";
 
-import HomePage from '../pages/main/Homepage';
+import Home from "../pages/main/Home";
 
-import NotFound from "pages/NotFound";
+import NotFound from "../pages/NotFound";
 
 const MainRoutes = {
     path: '/',
@@ -10,11 +10,11 @@ const MainRoutes = {
     children: [
         {
             path: '/',
-            element: <HomePage />,
+            element: <Home />,
         },
         {
             path: 'default',
-            element: <HomePage />,
+            element: <Home />,
         },
     ]
 }

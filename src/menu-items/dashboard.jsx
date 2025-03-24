@@ -27,14 +27,6 @@ const dashboard = {
       breadcrumbs: false
     },
     {
-      id: 'appointment',
-      title: 'Appointments',
-      type: 'item',
-      url: '/client_dashboard/appointments',
-      icon: icons.ShoppingOutlined,
-      breadcrumbs: false
-    },
-    {
       id: 'orders',
       title: 'Orders',
       type: 'item',

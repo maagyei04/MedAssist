@@ -1,6 +1,6 @@
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import logo from '../../../assets/images/tillye_logo.jpg';
+import logo from '../../../assets/images/bot.png';
 
 
 const Logo = () => {
