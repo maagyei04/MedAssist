@@ -89,7 +89,7 @@ const Home = () => {
   ]
 
   return (
- <Box sx={{ flexGrow: 1, py: 8, position: 'relative', overflow: 'hidden' }}>
+ <Box id="home" sx={{ flexGrow: 1, py: 8, position: 'relative', overflow: 'hidden' }}>
       <AnimatedBackground className="animated-background" />
       <Container maxWidth="lg">
         <Typography
@@ -213,6 +213,7 @@ const Home = () => {
   </div>
 </div>
 
+<section id="about">
 {/* Chatbot area */}
  <div className="container mx-auto px-4 py-12 md:py-4">
       <div className="flex flex-col md:flex-row items-center justify-between gap-8">
@@ -285,7 +286,9 @@ const Home = () => {
         </div>
       </div>
     </div>
+    </section>
 
+<section id="services">
         <Typography
           variant="h5"
           align="center"
@@ -325,6 +328,9 @@ const Home = () => {
             </Grid>
           ))}
         </Grid>
+        </section>
+
+<section id="stories">
 
         <Typography
           variant="h6"
@@ -341,6 +347,7 @@ const Home = () => {
             Read Success Stories
           </button>
         </Box>
+        </section>
 
       </Container>
       

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import AuthModal from '../common/AuthModal';
 import { useAuth } from '../../contexts/authContext';
+import { scrollToSection } from '../common/ScrollToSection';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,17 +10,19 @@ const Header = () => {
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
     const { userLoggedIn } = useAuth();
 
+    const navigate = useNavigate();
+
     const handleClick = () => {
         userLoggedIn &&
             navigate('/client_dashboard')
     };
 
     const navLinks = [
-        { name: 'Home', path: '/' },
-        { name: 'About', path: '/about' },
-        { name: 'Services', path: '/services' },
-        { name: 'Success Stories', path: '/success' },
-        { name: 'Contact Us', path: '/contact' }
+        { name: 'Home', href: '/', to: '/' },
+        { name: 'About', href: '#about', to: 'about' },
+        { name: 'Services', href: '#services', to: 'services' },
+        { name: 'Success Stories', href: '#stories', to: 'stories' },
+        { name: 'Contact Us', href: '#contact', to: 'contact' }
     ];
 
     return (
@@ -44,17 +47,21 @@ const Header = () => {
                 {/* Nav Links - Desktop */}
                 <div className="hidden lg:flex items-center gap-4">
                     {navLinks.map((link) => (
-                        <Link
-                            key={link.path}
-                            to={link.path}
+                        <a
+                            key={link.name}
+                            href={link.to}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                scrollToSection(link.to)
+                            }}
                             className={`px-4 py-2 rounded-3xl transition-colors ${
-                                location.pathname === link.path
+                                location.pathname === link.to
                                 ? 'bg-[#04387CFF] text-white text-sm'
                                 : 'text-black text-sm hover:text-gray-500'
                             }`}
                         >
                             {link.name}
-                        </Link>
+                        </a>
                     ))}
                 </div>
 

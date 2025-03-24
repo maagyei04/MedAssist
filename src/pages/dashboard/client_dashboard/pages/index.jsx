@@ -11,67 +11,46 @@ const containerStyle = {
 };
 
 export default function DashboardDefault() {
-  // Mock data for UI demonstration
-  const mockBookings = [
-    {
-      id: 1,
-      artisanName: "John Smith",
-      serviceDetail: "Plumbing repair in kitchen",
-      startDate: "2024-02-15",
-      estimateAmount: 500,
-      town: "Accra",
-      region: "Greater Accra"
-    },
-    {
-      id: 2, 
-      artisanName: "Mary Johnson",
-      serviceDetail: "Electrical wiring installation",
-      startDate: "2024-02-16",
-      estimateAmount: 800,
-      town: "Kumasi",
-      region: "Ashanti"
-    }
-  ];
 
   const mockNewBookings = [
     {
       id: 1,
       artisanName: "David Wilson",
-      serviceDetail: "Painting living room",
-      startDate: "2024-02-20"
+      serviceDetail: "Diabetes Appointment Follow-Up",
+      startDate: "2025-03-24"
     }
   ];
 
   return (
     <div>
-      <h1 className="font-bold text-2xl">Hi John!</h1>
+      <h1 className="font-bold text-xl">Welcome User! Here’s your health summary.</h1>
       <Grid container className="flex flex-col md:flex-row">
         {/* Left Side */}
         <Grid item xs={12} md={8} className="p-2">
           <p className="text-sm text-gray-500">
-            Here, you'll find everything you need to manage your bookings and appointments with ease. From scheduling your next consultation to tracking the progress of your project, our platform puts you in control every step of the way.
+            Below is a rep/summary
           </p>
           <Box className="flex flex-col h-full">
             {/* Top three black bordered divs */}
             <Box className="flex flex-col md:flex-row justify-between mb-2">
               <Box className="shadow-xl shadow-black-600" sx={{ ...containerStyle, flex: 1, mr: 2 }}>
-                <p className="mb-2">Total Appointments</p>
-                <p className="mb-2 font-bold">5</p>
+                <p className="mb-2">Health Score/Status</p>
+                <p className="mb-2 text-blue-700 font-bold">89% (good)</p>
                 <p className="text-sm text-gray-500">
-                  <span className="text-blue-700">Approved</span> appointments
+                  <span className="text-green-700">(+5%)</span> AI-generated overall health rating
                 </p>
               </Box>
               <Box className="shadow-xl shadow-black-600" sx={{ ...containerStyle, flex: 1, mr: 2 }}>
-                <p className="mb-2">Completed Appointments</p>
-                <p className="mb-2 font-bold">3</p>
+                <p className="mb-2">Recent Health Summary</p>
+                <p className="mb-2 font-bold">104</p>
                 <p className="text-sm text-gray-500">
-                  Audited and <span className="text-blue-700">paid</span> services
+                  Audited and <span className="text-violet-700">(+5%)</span> Latest AI analysis results
                 </p>
               </Box>
               <Box className="shadow-xl shadow-black-600" sx={{ ...containerStyle, flex: 1, mr: 2 }}>
-                <p className="mb-2">Total Amount Paid</p>
-                <p className="text-xl text-gray-500">
-                  <span className="text-green-500">GHC 1,500.00</span>
+                <p className="mb-2">Latest AI analysis results</p>
+                <p className="text-xl text-gray-500"> 
+                  <span className="text-green-500">148</span>
                 </p>
               </Box>
             </Box>
@@ -80,54 +59,59 @@ export default function DashboardDefault() {
               <div className='flex flex-row justify-between'>
                 <div className='flex flex-col'>
                   <Typography className='text-l font-bold' gutterBottom>
-                    Appointments in Progress
+                    Nearby Health Facilities
                   </Typography>
                   <p className='text-sm text-gray-500 mb-5'>
-                    Approved appointments that the artisan is currently working on
+                    Healthcare providers and facilities close to your location
                   </p>
                 </div>
                 <div>
-                  <p className='text-blue-600'><Link to={'/client_dashboard/appointments'}>See All</Link></p>
+                  <p className='text-blue-600'><Link to={'/client_dashboard/facilities'}>View All</Link></p>
                 </div>
               </div>
-              {mockBookings.length > 0 ? (
-                mockBookings.map((booking) => (
-                  <Box key={booking.id} className="p-2 rounded-[10px] border border-gray-300 mb-2">
-                    <div className='flex justify-between mb-5'>
-                      <div className='flex flex-row'>
-                        <p className='font-bold'>{booking.artisanName}</p>
-                      </div>
-                      <div className='bg-green-300 rounded-[10px] px-4'>
-                        <p className='text-green-700'>In Progress</p>
-                      </div>
+              {/* Map container */}
+              <div className="w-full h-[400px] rounded-lg mb-4 bg-gray-100">
+                {/* Here you would integrate your map component, e.g. Google Maps or Leaflet */}
+                <div className="w-full h-full flex items-center justify-center">
+                  <p className="text-gray-500">Map loading...</p>
+                </div>
+              </div>
+              {/* Facility list */}
+              <div className="space-y-3">
+                <div className="p-3 border rounded-lg">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h3 className="font-bold">Ridge Hospital</h3>
+                      <p className="text-sm text-gray-500">2.3 km away</p>
                     </div>
-                    <div className='flex flex-row justify-between text-left'>
-                      <div>
-                        <p className='text-gray-500'>Job Description</p>
-                        <p className='font-bold text-sm truncate max-w-full'>{booking.serviceDetail}</p>
-                      </div>
-                      <div>
-                        <p className='text-gray-500'>Expected Date</p>
-                        <p className='font-bold text-sm'>{booking.startDate}</p>
-                      </div>
-                      <div>
-                        <p className='text-gray-500'>Total Estimate</p>
-                        <p className='font-bold text-sm'>GHC {booking.estimateAmount}.00</p>
-                      </div>
-                      <div>
-                        <p className='text-gray-500'>Location</p>
-                        <p className='font-bold text-sm'>{booking.town} {booking.region}</p>
-                      </div>
+                    <div className="bg-green-100 px-3 py-1 rounded-full">
+                      <span className="text-green-700 text-sm">Open 24/7</span>
                     </div>
-                  </Box>
-                ))
-              ) : (
-                <Box className="flex flex-col items-center justify-center mt-10">
-                  <EmptyIcon className='h-20' style={{ color: 'gray' }} />
-                  <p className='font-bold text-lg'>You've no pending appointments yet</p>
-                  <Typography className="text-gray-500 mt-2 text-center px-2 md:px-20">You're all set! There are currently no pending appointments for you. Enjoy your free time or use it to tackle your next task with peace of mind.</Typography>
-                </Box>
-              )}
+                  </div>
+                </div>
+                <div className="p-3 border rounded-lg">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h3 className="font-bold">Korle Bu Teaching Hospital</h3>
+                      <p className="text-sm text-gray-500">3.8 km away</p>
+                    </div>
+                    <div className="bg-green-100 px-3 py-1 rounded-full">
+                      <span className="text-green-700 text-sm">Open 24/7</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-3 border rounded-lg">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h3 className="font-bold">37 Military Hospital</h3>
+                      <p className="text-sm text-gray-500">5.1 km away</p>
+                    </div>
+                    <div className="bg-green-100 px-3 py-1 rounded-full">
+                      <span className="text-green-700 text-sm">Open 24/7</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </Box>
           </Box>
         </Grid>
@@ -137,7 +121,7 @@ export default function DashboardDefault() {
           <div className='flex flex-row justify-between'>
             <div>
               <Typography className='text-l font-bold' gutterBottom>
-                New Appointments
+                Emergency & Quick Actions (4)
               </Typography>
             </div>
             <div>
@@ -146,7 +130,7 @@ export default function DashboardDefault() {
           </div>
 
           <Typography variant="body1" className='text-gray-500' gutterBottom>
-            Latest appointment listing that is yet to be approved. You're either waiting for an estimate from a artisan or you are ready to make payment.
+            For urgent medical help
           </Typography>
           {mockNewBookings.length > 0 ? (
             mockNewBookings.map((booking) => (
