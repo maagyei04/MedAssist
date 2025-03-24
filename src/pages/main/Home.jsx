@@ -103,7 +103,7 @@ const Home = () => {
             position: 'relative',         
           }}
         >
-          From <span style={{color: '#04387CFF'}}>symptoms →</span>{' '}
+          From <span style={{color: '#04387CFF'}}>symptoms →</span>{''}
           <span style={{display: 'inline-block', minWidth: '400px'}}>
             <Typewriter 
               words={['Intelligent Health Chatbot', 'Disease Prediction', 'Medical Report Analysis']} 
