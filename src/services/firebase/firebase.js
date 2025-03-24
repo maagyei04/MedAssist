@@ -5,12 +5,12 @@ import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA1BthyqzHEm6tgynG563Iy1wiRVFRJoDg',
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_APP_MEASUREMENT_ID
+  authDomain: 'medassist-367eb.firebaseapp.com',
+  projectId: 'medassist-367eb',
+  storageBucket: 'medassist-367eb.firebasestorage.app',
+  messagingSenderId: '78124466702',
+  appId: '1:78124466702:web:cc5b325500c3bf8272f25f',
+  measurementId: 'G-79JBH0H60W'
 }
 
 const app = initializeApp(firebaseConfig)
