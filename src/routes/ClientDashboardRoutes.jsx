@@ -7,7 +7,7 @@ const DashboardDefault = Loadable(lazy(() => import('../pages/dashboard/client_d
 const Medical = Loadable(lazy(() => import('../pages/dashboard/client_dashboard/pages/medical')));
 const Chatbot = Loadable(lazy(() => import('../pages/dashboard/client_dashboard/pages/chat')));
 const Profile = Loadable(lazy(() => import('../pages/dashboard/client_dashboard/pages/profile')));
-const Symptom = Loadable(lazy(() => import('../pages/dashboard/client_dashboard/pages/symptom')));
+const Symptom = Loadable(lazy(() => import('../pages/dashboard/client_dashboard/pages/symptom1')));
 
 
 const ClientDashboardLayout = {
