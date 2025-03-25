@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SendOutlined, PlusOutlined } from '@ant-design/icons';
+import axios from 'axios';
 
 const ChatInterface = () => {
   const [messages, setMessages] = useState([
@@ -11,6 +12,7 @@ const ChatInterface = () => {
     }
   ]);
   const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -21,15 +23,53 @@ const ChatInterface = () => {
     scrollToBottom();
   }, [messages]);
 
-  const handleSubmit = (e) => {
+  const getBotResponse = async (userMessage) => {
+    const options = {
+      method: 'POST',
+      url: 'https://ai-doctor-api-ai-medical-chatbot-healthcare-ai-assistant.p.rapidapi.com/chat',
+      params: {noqueue: '1'},
+      headers: {
+        'x-rapidapi-key': '4bed3817f3msh8149d1c737c8a54p17ebc9jsn66da4802ee0d',
+        'x-rapidapi-host': 'ai-doctor-api-ai-medical-chatbot-healthcare-ai-assistant.p.rapidapi.com',
+        'Content-Type': 'application/json'
+      },
+      data: {
+        message: userMessage,
+        specialization: 'general',
+        language: 'en'
+      }
+    };
+
+    try {
+      const response = await axios.request(options);
+      return response.data.result.response.message;
+    } catch (error) {
+      console.error(error);
+      return "Sorry, I'm having trouble connecting right now. Please try again later.";
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (inputValue.trim()) {
-      setMessages([...messages, {
+      // Add user message
+      const userMessage = {
         id: messages.length + 1,
         text: inputValue,
         isBot: false
-      }]);
+      };
+      setMessages(prev => [...prev, userMessage]);
       setInputValue('');
+      setIsLoading(true);
+
+      // Get and add bot response
+      const botResponse = await getBotResponse(inputValue);
+      setMessages(prev => [...prev, {
+        id: prev.length + 1,
+        text: botResponse,
+        isBot: true
+      }]);
+      setIsLoading(false);
     }
   };
 
@@ -72,6 +112,17 @@ const ChatInterface = () => {
               </div>
             </motion.div>
           ))}
+          {isLoading && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="flex justify-start"
+            >
+              <div className="max-w-[80%] p-4 rounded-lg bg-white shadow-md">
+                <p className="text-sm">Thinking...</p>
+              </div>
+            </motion.div>
+          )}
         </AnimatePresence>
         <div ref={messagesEndRef} />
       </div>
@@ -97,11 +148,17 @@ const ChatInterface = () => {
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Please input your prompt here..."
               className="flex-1 px-4 py-2 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              disabled={isLoading}
             />
             
             <button
               type="submit"
-              className="p-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
+              className={`p-3 rounded-full transition-colors ${
+                isLoading 
+                  ? 'bg-gray-400 cursor-not-allowed' 
+                  : 'bg-blue-500 hover:bg-blue-600 text-white'
+              }`}
+              disabled={isLoading}
             >
               <SendOutlined className="text-xl" />
             </button>
@@ -113,3 +170,14 @@ const ChatInterface = () => {
 };
 
 export default ChatInterface;
+
+
+
+
+
+
+
+
+
+
+

@@ -2,6 +2,11 @@ import React from 'react';
 import { Grid, Typography, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { MagnifyingGlassIcon as EmptyIcon } from '@heroicons/react/24/outline';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 const containerStyle = {
   backgroundColor: 'white',
@@ -21,9 +26,38 @@ export default function DashboardDefault() {
     }
   ];
 
+  // Fix for default marker icon
+  let DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41]
+  });
+  L.Marker.prototype.options.icon = DefaultIcon;
+
+  const defaultCenter = [5.6037, -0.1870]; // Accra coordinates
+
+  const hospitals = [
+    {
+      name: "Ridge Hospital",
+      position: [5.5577, -0.1962],
+      distance: "2.3 km"
+    },
+    {
+      name: "Korle Bu Teaching Hospital", 
+      position: [5.5366, -0.2181],
+      distance: "3.8 km"
+    },
+    {
+      name: "37 Military Hospital",
+      position: [5.5852, -0.1851],
+      distance: "5.1 km"
+    }
+  ];
+
   return (
     <div>
-      <h1 className="font-bold text-xl">Welcome User! Here’s your health summary.</h1>
+      <h1 className="font-bold text-xl">Welcome User! Here's your health summary.</h1>
       <Grid container className="flex flex-col md:flex-row">
         {/* Left Side */}
         <Grid item xs={12} md={8} className="p-2">
@@ -70,47 +104,44 @@ export default function DashboardDefault() {
                 </div>
               </div>
               {/* Map container */}
-              <div className="w-full h-[400px] rounded-lg mb-4 bg-gray-100">
-                {/* Here you would integrate your map component, e.g. Google Maps or Leaflet */}
-                <div className="w-full h-full flex items-center justify-center">
-                  <p className="text-gray-500">Map loading...</p>
-                </div>
+              <div className="w-full h-[400px] rounded-lg mb-4">
+                <MapContainer 
+                  center={defaultCenter} 
+                  zoom={13} 
+                  style={{ height: "100%", width: "100%" }}
+                >
+                  <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  />
+                  {hospitals.map((hospital, index) => (
+                    <Marker 
+                      key={index}
+                      position={hospital.position}
+                    >
+                      <Popup>
+                        <b>{hospital.name}</b><br/>
+                        {hospital.distance} away
+                      </Popup>
+                    </Marker>
+                  ))}
+                </MapContainer>
               </div>
               {/* Facility list */}
               <div className="space-y-3">
-                <div className="p-3 border rounded-lg">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <h3 className="font-bold">Ridge Hospital</h3>
-                      <p className="text-sm text-gray-500">2.3 km away</p>
-                    </div>
-                    <div className="bg-green-100 px-3 py-1 rounded-full">
-                      <span className="text-green-700 text-sm">Open 24/7</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="p-3 border rounded-lg">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <h3 className="font-bold">Korle Bu Teaching Hospital</h3>
-                      <p className="text-sm text-gray-500">3.8 km away</p>
-                    </div>
-                    <div className="bg-green-100 px-3 py-1 rounded-full">
-                      <span className="text-green-700 text-sm">Open 24/7</span>
+                {hospitals.map((hospital, index) => (
+                  <div key={index} className="p-3 border rounded-lg">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h3 className="font-bold">{hospital.name}</h3>
+                        <p className="text-sm text-gray-500">{hospital.distance} away</p>
+                      </div>
+                      <div className="bg-green-100 px-3 py-1 rounded-full">
+                        <span className="text-green-700 text-sm">Open 24/7</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="p-3 border rounded-lg">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <h3 className="font-bold">37 Military Hospital</h3>
-                      <p className="text-sm text-gray-500">5.1 km away</p>
-                    </div>
-                    <div className="bg-green-100 px-3 py-1 rounded-full">
-                      <span className="text-green-700 text-sm">Open 24/7</span>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </Box>
           </Box>

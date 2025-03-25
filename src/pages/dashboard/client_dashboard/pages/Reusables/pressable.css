@@ -1,0 +1,24 @@
+.press1{
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 20px;
+    background-color: rgba(4, 172, 15, 1);
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+.colorchange1{
+    background-color: rgba(4, 172, 15, 0.2);
+}
+.press2{
+    background-color: rgba(191, 10, 48, 1);
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+.colorchange2{
+    background-color: rgba(191, 10, 48, 0.2);
+}

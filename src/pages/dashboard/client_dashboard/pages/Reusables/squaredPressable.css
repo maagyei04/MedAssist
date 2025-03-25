@@ -1,0 +1,12 @@
+.icon-text{
+    display: flex;
+    cursor: pointer;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    height: 40px;
+  }
+  .icon-text:hover{
+    color: rgba(0,40,104,1);
+  }
+  

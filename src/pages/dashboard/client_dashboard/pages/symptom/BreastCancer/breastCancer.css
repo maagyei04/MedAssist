@@ -1,0 +1,11 @@
+.maincancerboard{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    height: auto;
+    width: 100%;
+}
+.column{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
