@@ -52,7 +52,7 @@ const GeneralScreen = () => {
 
     try {
       const response = await axios.request(options);
-      setDiagnosis(response.data.result.analysis.possibleConditions);
+      setDiagnosis(response.data.result.analysis.possibleConditions.condition);
       console.log(diagnosis);
       setShowModal(true);
     } catch (error) {

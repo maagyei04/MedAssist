@@ -14,7 +14,24 @@ const DiabetesScreen = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [predictionResult, setPredictionResult] = useState('');
   const [probability, setProbability] = useState('');
-  
+
+  // Define symptom weights based on their importance for diabetes diagnosis
+  const symptomWeights = {
+    'Polyuria': 0.15, // Excessive urination - key symptom
+    'Polydipsia': 0.15, // Excessive thirst - key symptom
+    'Polyphagia': 0.15, // Excessive hunger - key symptom
+    'Sudden weight loss': 0.12, // Major symptom
+    'Weakness': 0.08,
+    'Delayed healing': 0.07,
+    'Vision burning': 0.06,
+    'Obesity': 0.06,
+    'Genital thrush': 0.05,
+    'Irritability': 0.03,
+    'Muscle stiffness': 0.03,
+    'Itching': 0.02,
+    'Partial paresis': 0.02,
+    'Alopecia': 0.01
+  };
 
   const questions = [
     { question: 'Polyuria', help: 'Excessive urination' },
@@ -75,32 +92,34 @@ const DiabetesScreen = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Logic to determine if the user has diabetes or not
-    const diabetesSymptoms = ['Polyuria', 'Polydipsia', 'Polyphagia', 'Sudden weight loss'];
-    const hasDiabetes = symptoms.every(symptom => diabetesSymptoms.includes(symptom));
+    // Calculate weighted probability based on present symptoms
+    let totalWeight = 0;
+    let presentSymptomsWeight = 0;
 
-    if (hasDiabetes) {
-      setDiagnosis(['Diabetes']);
-      setPredictionResult('High Risk');
-      setProbability(`Probability of having Diabetes: 100%`);
-    } else {
-      const diabetesSymptomCount = symptoms.filter(symptom => diabetesSymptoms.includes(symptom)).length;
-      const totalSymptomCount = symptoms.length;
-      const probabilityOfHavingDisease = diabetesSymptomCount / totalSymptomCount;
-
-      // Determine the diagnosis based on the probability range
-      if (probabilityOfHavingDisease >= 0.75) {
-        setDiagnosis(['Borderline']);
-        setPredictionResult('Moderate Risk');
-      } else if (probabilityOfHavingDisease >= 0.5 && probabilityOfHavingDisease < 0.75) {
-        setDiagnosis(['Borderline']);
-        setPredictionResult('Moderate Risk');
-      } else {
-        setDiagnosis([]);
-        setPredictionResult('Low Risk');
+    // Sum up weights of present symptoms
+    symptoms.forEach(symptom => {
+      if (symptomWeights[symptom]) {
+        totalWeight += symptomWeights[symptom];
+        presentSymptomsWeight += symptomWeights[symptom];
       }
+    });
 
-      setProbability(`Probability of having Diabetes: ${(probabilityOfHavingDisease * 100).toFixed(2)}%`);
+    // Calculate final probability as a percentage
+    const probabilityScore = (presentSymptomsWeight / 1) * 100;
+
+    // Determine risk level based on probability
+    if (probabilityScore >= 70) {
+      setDiagnosis(['High risk of Diabetes']);
+      setPredictionResult('High Risk');
+      setProbability(`Probability of having Diabetes: ${probabilityScore.toFixed(1)}%`);
+    } else if (probabilityScore >= 40) {
+      setDiagnosis(['Moderate risk of Diabetes']);
+      setPredictionResult('Moderate Risk');
+      setProbability(`Probability of having Diabetes: ${probabilityScore.toFixed(1)}%`);
+    } else {
+      setDiagnosis(['Low risk of Diabetes']);
+      setPredictionResult('Low Risk');
+      setProbability(`Probability of having Diabetes: ${probabilityScore.toFixed(1)}%`);
     }
 
     setIsModalOpen(true);
