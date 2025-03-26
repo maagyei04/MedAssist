@@ -36,6 +36,7 @@ export default function DashboardDefault() {
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [openEmergencyModal, setOpenEmergencyModal] = useState(false);
+  const [mapReady, setMapReady] = useState(false);
 
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
@@ -64,43 +65,45 @@ export default function DashboardDefault() {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const { latitude, longitude } = position.coords;
-          setUserLocation([latitude, longitude]);
-          
-          try {
-            const radius = 5000; // 5km radius
-            const query = `
-              [out:json][timeout:25];
-              (
-                node["amenity"="hospital"](around:${radius},${latitude},${longitude});
-                way["amenity"="hospital"](around:${radius},${latitude},${longitude});
-                relation["amenity"="hospital"](around:${radius},${latitude},${longitude});
-              );
-              out body;
-              >;
-              out skel qt;
-            `;
+          if (latitude && longitude) {
+            setUserLocation([latitude, longitude]);
+            setMapReady(true);
             
-            const response = await fetch(`https://overpass-api.de/api/interpreter`, {
-              method: 'POST',
-              body: query
-            });
-            
-            const data = await response.json();
-            
-            const hospitals = data.elements
-              .filter(element => element.tags && element.tags.name)
-              .map(element => ({
-                name: element.tags.name,
-                position: [element.lat, element.lon],
-                distance: `${((getDistance([latitude, longitude], [element.lat, element.lon])) / 1000).toFixed(1)} km`
-              }));
+            try {
+              const radius = 5000;
+              const query = `
+                [out:json][timeout:25];
+                (
+                  node["amenity"="hospital"](around:${radius},${latitude},${longitude});
+                  way["amenity"="hospital"](around:${radius},${latitude},${longitude});
+                  relation["amenity"="hospital"](around:${radius},${latitude},${longitude});
+                );
+                out body;
+                >;
+                out skel qt;
+              `;
+              
+              const response = await fetch(`https://overpass-api.de/api/interpreter`, {
+                method: 'POST',
+                body: query
+              });
+              
+              const data = await response.json();
+              
+              const hospitals = data.elements
+                .filter(element => element.tags && element.tags.name && element.lat && element.lon)
+                .map(element => ({
+                  name: element.tags.name,
+                  position: [element.lat, element.lon],
+                  distance: `${((getDistance([latitude, longitude], [element.lat, element.lon])) / 1000).toFixed(1)} km`
+                }));
 
-            setAllHospitals(hospitals);
-            setNearbyHospitals(hospitals.slice(0, 5)); // Get only first 5 hospitals
-          } catch (error) {
-            console.error("Error fetching nearby hospitals:", error);
+              setAllHospitals(hospitals);
+              setNearbyHospitals(hospitals.slice(0, 5));
+            } catch (error) {
+              console.error("Error fetching nearby hospitals:", error);
+            }
           }
-          
           setLoading(false);
         },
         (error) => {
@@ -176,41 +179,44 @@ export default function DashboardDefault() {
                 </div>
               </div>
               {/* Map container */}
-              <div className="w-full h-[400px] rounded-lg mb-4">
-                {userLocation && (
-                  <MapContainer 
-                    center={userLocation} 
-                    zoom={13} 
-                    style={{ height: "100%", width: "100%" }}
-                  >
-                    <TileLayer
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    />
-                    {/* User's location marker */}
-                    {userLocation && (
-                      <Marker position={userLocation}>
-                        <Popup>
-                          <b>Your Location</b>
-                        </Popup>
-                      </Marker>
-                    )}
-                    {/* Hospital markers */}
-                    {nearbyHospitals.map((hospital, index) => (
-                      <Marker 
-                        key={index}
-                        position={hospital.position}
-                      >
-                        <Popup>
-                          <b>{hospital.name}</b><br/>
-                          {hospital.distance} away
-                        </Popup>
-                      </Marker>
-                    ))}
-                  </MapContainer>
-                )}
-                {loading && <div className="flex justify-center items-center h-full">Loading map...</div>}
-              </div>
+                 <div className="w-full h-[400px] rounded-lg mb-4">
+      {loading ? (
+        <div className="flex justify-center items-center h-full">Loading map...</div>
+      ) : mapReady && userLocation ? (
+        <MapContainer 
+          center={userLocation} 
+          zoom={13} 
+          style={{ height: "100%", width: "100%" }}
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
+          <Marker position={userLocation}>
+            <Popup>
+              <b>Your Location</b>
+            </Popup>
+          </Marker>
+          {nearbyHospitals.map((hospital, index) => (
+            hospital.position && hospital.position[0] && hospital.position[1] && (
+              <Marker 
+                key={index}
+                position={hospital.position}
+              >
+                <Popup>
+                  <b>{hospital.name}</b><br/>
+                  {hospital.distance} away
+                </Popup>
+              </Marker>
+            )
+          ))}
+        </MapContainer>
+      ) : (
+        <div className="flex justify-center items-center h-full">
+          Unable to load map. Please enable location services.
+        </div>
+      )}
+    </div>
               {/* Facility list */}
               <div className="space-y-3">
                 {nearbyHospitals.map((hospital, index) => (
