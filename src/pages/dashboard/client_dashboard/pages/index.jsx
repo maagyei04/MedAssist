@@ -188,11 +188,13 @@ export default function DashboardDefault() {
                       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     />
                     {/* User's location marker */}
-                    <Marker position={userLocation}>
-                      <Popup>
-                        <b>Your Location</b>
-                      </Popup>
-                    </Marker>
+                    {userLocation && (
+                      <Marker position={userLocation}>
+                        <Popup>
+                          <b>Your Location</b>
+                        </Popup>
+                      </Marker>
+                    )}
                     {/* Hospital markers */}
                     {nearbyHospitals.map((hospital, index) => (
                       <Marker 

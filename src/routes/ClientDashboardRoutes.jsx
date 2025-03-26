@@ -8,7 +8,7 @@ const Medical = Loadable(lazy(() => import('../pages/dashboard/client_dashboard/
 const Chatbot = Loadable(lazy(() => import('../pages/dashboard/client_dashboard/pages/chat')));
 const Profile = Loadable(lazy(() => import('../pages/dashboard/client_dashboard/pages/profile')));
 const Symptom = Loadable(lazy(() => import('../pages/dashboard/client_dashboard/pages/symptom1')));
-
+const Appointment = Loadable(lazy(() => import('../pages/dashboard/client_dashboard/pages/Appointment/Appointment')));
 
 const ClientDashboardLayout = {
     path: '/client_dashboard/', 
@@ -30,9 +30,13 @@ const ClientDashboardLayout = {
             path: '/client_dashboard/profile',
             element: <Profile />
         },
-                {
+        {
             path: '/client_dashboard/symptom',
             element: <Symptom />
+        },
+        {
+            path: '/client_dashboard/appointment',
+            element: <Appointment />
         },
         {
             path: 'default',

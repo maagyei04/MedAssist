@@ -1,20 +1,23 @@
 import React from 'react';
-import "./DoctorInfo.css";
-import Pressable from './pressable';
 
-function DoctorInfo({ source, name, age, hospital, speciality,oncontact }) {
-   
+function DoctorInfo({ source, name, age, hospital, speciality, oncontact }) {
     return (
-        <div id='infobox'>
-            <div id='image'>
-                <img src={source} alt='Doctor' />
+        <div className="flex items-center bg-white rounded-lg shadow-md p-4">
+            <div className="w-24 h-24 rounded-full overflow-hidden mr-4">
+                <img src={source} alt="Doctor" className="w-full h-full object-cover" />
             </div>
-            <div id="details">
-                <p><strong>Name:</strong> {name}</p>
-                <p><strong>Age:</strong> {age}</p>
-                <p><strong>Field:</strong> {speciality}</p>
-                <p><strong>Clinic:</strong> {hospital}</p>
-                <Pressable children={"Contact"} height={"40px"} onPress={oncontact}/>
+            <div>
+                <h3 className="text-lg font-semibold mb-1">{name}</h3>
+                <p className="text-gray-600 mb-1"><strong>Age:</strong> {age}</p>
+                <p className="text-gray-600 mb-1"><strong>Field:</strong> {speciality}</p>
+                <p className="text-gray-600 mb-2"><strong>Clinic:</strong> {hospital}</p>
+                <button
+                    onClick={oncontact}
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg"
+                    style={{ height: '40px' }}
+                >
+                    Contact
+                </button>
             </div>
         </div>
     );

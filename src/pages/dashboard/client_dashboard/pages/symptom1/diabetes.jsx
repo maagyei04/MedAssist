@@ -80,13 +80,30 @@ const DiabetesScreen = () => {
     const hasDiabetes = symptoms.some(symptom => diabetesSymptoms.includes(symptom));
 
     if (hasDiabetes) {
-      setDiagnosis(['Diabetes']);
-      setPredictionResult('Positive');
-      setProbability('80%');
+      const diabetesSymptomCount = symptoms.filter(symptom => diabetesSymptoms.includes(symptom)).length;
+      const totalSymptomCount = symptoms.length;
+      const probabilityOfHavingDisease = diabetesSymptomCount / totalSymptomCount;
+
+      // Determine the diagnosis based on the probability range
+      if (probabilityOfHavingDisease >= 0.7) {
+        setDiagnosis(['Diabetes']);
+        setPredictionResult('High Risk');
+      } else if (probabilityOfHavingDisease >= 0.4 && probabilityOfHavingDisease < 0.7) {
+        setDiagnosis(['Borderline']);
+        setPredictionResult('Moderate Risk');
+      } else {
+        setDiagnosis([]);
+        setPredictionResult('Low Risk');
+      }
+
+      setProbability(`Probability of having Diabetes: ${(probabilityOfHavingDisease * 100).toFixed(2)}%`);
     } else {
       setDiagnosis([]);
-      setPredictionResult('Negative');
-      setProbability('20%');
+      setPredictionResult('Low Risk');
+      const nonDiabetesSymptomCount = symptoms.filter(symptom => !diabetesSymptoms.includes(symptom)).length;
+      const totalSymptomCount = symptoms.length;
+      const probabilityOfNotHavingDisease = nonDiabetesSymptomCount / totalSymptomCount;
+      setProbability(`Probability of not having Diabetes: ${(probabilityOfNotHavingDisease * 100).toFixed(2)}%`);
     }
 
     setIsModalOpen(true);
@@ -237,21 +254,21 @@ const DiabetesScreen = () => {
               </button>
             </div>
             <p className="mb-4">
-              Predicted Outcome: <span className={`font-bold ${predictionResult === "Positive" ? "text-red-500" : "text-green-500"}`}>{predictionResult}</span>
+              Predicted Outcome: <span className={`font-bold ${predictionResult === "High Risk" ? "text-red-500" : predictionResult === "Moderate Risk" ? "text-yellow-500" : "text-green-500"}`}>{predictionResult}</span>
             </p>
             <p className="mb-6">
-              Probability: <span className={`font-bold ${probability === "80%" ? "text-red-500" : "text-green-500"}`}>{probability}</span>
+              {probability}
             </p>
             <div className="animation-container mb-6">
-              {predictionResult === "Positive" ? (
+              {predictionResult === "High Risk" ? (
                 <Lottie animationData={danger} loop width={200} height={200} />
-              ) : predictionResult === "Negative" ? (
+              ) : predictionResult === "Low Risk" ? (
                 <Lottie animationData={healthy} loop width={200} height={200} />
               ) : (
                 <Lottie animationData={missing} loop width={100} height={100} />
               )}
             </div>
-            {predictionResult === 'Positive' && (
+            {predictionResult === 'High Risk' && (
               <div className="mt-6">
                 <h3 className="text-lg font-bold mb-4">Contact Specialist</h3>
                 <div className="flex justify-center">

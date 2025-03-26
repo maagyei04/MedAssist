@@ -51,6 +51,14 @@ const dashboard = {
       breadcrumbs: false
     },
     {
+      id: 'appointment',
+      title: 'Appointment',
+      type: 'item',
+      url: '/client_dashboard/appointment',
+      icon: icons.CreditCardOutlined,
+      breadcrumbs: false
+    },
+    {
       id: 'profile',
       title: 'Profile',
       type: 'item',
