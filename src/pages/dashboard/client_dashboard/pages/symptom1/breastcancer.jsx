@@ -160,7 +160,7 @@ const BreastCancerScreen = ( ) => {
                   <div className="mr-4">
                     <Lottie animationData={ambulance} loop width={50} height={50} />
                   </div>
-                  <div>
+                  <div onClick={() => navigate('/client_dashboard/appointment')}>
                     <Lottie animationData={touch} loop width={100} height={100} />
                   </div>
                 </div>

@@ -5,6 +5,7 @@ import healthy from '../Assets/animations/Animation - healthy.json';
 import missing from '../Assets/animations/Animation - missing.json';
 import touch from '../Assets/animations/Animation - touch.json';
 import ambulance from '../Assets/animations/Animation - ambulance.json';
+import { useNavigate } from 'react-router-dom';
 
 const AutismScreen = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -12,6 +13,8 @@ const AutismScreen = () => {
   const [predictionResult, setPredictionResult] = useState(null);
   const [probability, setProbability] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const Questions = [
     {
@@ -161,7 +164,7 @@ const AutismScreen = () => {
                   <div className="mr-4">
                     <Lottie animationData={ambulance} loop width={50} height={50} />
                   </div>
-                  <div>
+                  <div onClick={() => navigate('/client_dashboard/appointment')}>
                     <Lottie animationData={touch} loop width={100} height={100} />
                   </div>
                 </div>

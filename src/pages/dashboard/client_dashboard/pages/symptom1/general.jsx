@@ -25,7 +25,7 @@ const GeneralScreen = () => {
       url: 'https://ai-medical-diagnosis-api-symptoms-to-results.p.rapidapi.com/analyzeSymptomsAndDiagnose',
       params: { noqueue: '1' },
       headers: {
-        'x-rapidapi-key': '4bed3817f3msh8149d1c737c8a54p17ebc9jsn66da4802ee0d',
+        'x-rapidapi-key': '282a8605a4msh1c6efdd80ee44acp1a87bajsndf409ba29918',
         'x-rapidapi-host': 'ai-medical-diagnosis-api-symptoms-to-results.p.rapidapi.com',
         'Content-Type': 'application/json'
       },

@@ -22,14 +22,14 @@ const ChatInterface = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
+ 
   const getBotResponse = async (userMessage) => {
     const options = {
-      method: 'POST',
+      method: 'POST',  
       url: 'https://ai-doctor-api-ai-medical-chatbot-healthcare-ai-assistant.p.rapidapi.com/chat',
       params: {noqueue: '1'},
       headers: {
-        'x-rapidapi-key': '4bed3817f3msh8149d1c737c8a54p17ebc9jsn66da4802ee0d',
+        'x-rapidapi-key': '282a8605a4msh1c6efdd80ee44acp1a87bajsndf409ba29918',
         'x-rapidapi-host': 'ai-doctor-api-ai-medical-chatbot-healthcare-ai-assistant.p.rapidapi.com',
         'Content-Type': 'application/json'
       },

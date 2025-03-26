@@ -7,7 +7,7 @@ import touch from "../Assets/animations/Animation - touch.json"
 import ambulance from "../Assets/animations/Animation - ambulance.json"
 
 const DiabetesScreen = () => {
-  const [symptoms, setSymptoms] = useState(['']);
+  const [symptoms, setSymptoms] = useState(['Polyuria', 'Polydipsia', 'Alopecia', 'Weakness', 'Partial paresis', 'Irritability', 'Delayed healing', 'Muscle stiffness', 'Polyphagia', 'Genital thrush', 'Vision burning', 'Itching', 'Obesity', 'Sudden weight loss']);
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
   const [diagnosis, setDiagnosis] = useState('');
@@ -77,18 +77,22 @@ const DiabetesScreen = () => {
 
     // Logic to determine if the user has diabetes or not
     const diabetesSymptoms = ['Polyuria', 'Polydipsia', 'Polyphagia', 'Sudden weight loss'];
-    const hasDiabetes = symptoms.some(symptom => diabetesSymptoms.includes(symptom));
+    const hasDiabetes = symptoms.every(symptom => diabetesSymptoms.includes(symptom));
 
     if (hasDiabetes) {
+      setDiagnosis(['Diabetes']);
+      setPredictionResult('High Risk');
+      setProbability(`Probability of having Diabetes: 100%`);
+    } else {
       const diabetesSymptomCount = symptoms.filter(symptom => diabetesSymptoms.includes(symptom)).length;
       const totalSymptomCount = symptoms.length;
       const probabilityOfHavingDisease = diabetesSymptomCount / totalSymptomCount;
 
       // Determine the diagnosis based on the probability range
-      if (probabilityOfHavingDisease >= 0.7) {
-        setDiagnosis(['Diabetes']);
-        setPredictionResult('High Risk');
-      } else if (probabilityOfHavingDisease >= 0.4 && probabilityOfHavingDisease < 0.7) {
+      if (probabilityOfHavingDisease >= 0.75) {
+        setDiagnosis(['Borderline']);
+        setPredictionResult('Moderate Risk');
+      } else if (probabilityOfHavingDisease >= 0.5 && probabilityOfHavingDisease < 0.75) {
         setDiagnosis(['Borderline']);
         setPredictionResult('Moderate Risk');
       } else {
@@ -97,13 +101,6 @@ const DiabetesScreen = () => {
       }
 
       setProbability(`Probability of having Diabetes: ${(probabilityOfHavingDisease * 100).toFixed(2)}%`);
-    } else {
-      setDiagnosis([]);
-      setPredictionResult('Low Risk');
-      const nonDiabetesSymptomCount = symptoms.filter(symptom => !diabetesSymptoms.includes(symptom)).length;
-      const totalSymptomCount = symptoms.length;
-      const probabilityOfNotHavingDisease = nonDiabetesSymptomCount / totalSymptomCount;
-      setProbability(`Probability of not having Diabetes: ${(probabilityOfNotHavingDisease * 100).toFixed(2)}%`);
     }
 
     setIsModalOpen(true);
@@ -124,6 +121,7 @@ const DiabetesScreen = () => {
             onChange={(e) => setAge(e.target.value)}
             placeholder="Enter your age"
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
           />
         </div>
         <div className="mb-4">
@@ -275,7 +273,7 @@ const DiabetesScreen = () => {
                   <div className="mr-4">
                     <Lottie animationData={ambulance} loop width={50} height={50} />
                   </div>
-                  <div>
+                  <div onClick={() => navigate('/client_dashboard/appointment')}>
                     <Lottie animationData={touch} loop width={100} height={100} />
                   </div>
                 </div>
