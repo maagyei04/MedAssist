@@ -63,11 +63,11 @@ const GeneralScreen = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen overflow-y-auto0">
+    <div className="flex flex-col h-screen overflow-y-auto">
       <div className="w-full p-4 flex-grow max-w-4xl mx-auto">
         <h2 className="text-xl font-bold mb-8">General Symptom Checker</h2>
         <form onSubmit={handleSubmit} className="w-full flex flex-wrap mb-[250px]">
-          <div className="mb-4 w-full">
+          <div className="mb-4 w-1/2 pr-2">
             <label htmlFor="symptoms" className="block font-bold mb-2 w-full">
               Symptoms: (seperated by commas)
             </label>
@@ -80,7 +80,7 @@ const GeneralScreen = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <div className="mb-4 w-full">
+          <div className="mb-4 w-1/2 pl-2">
             <label htmlFor="age" className="block font-bold mb-2 w-full">
               Age:
             </label>
@@ -93,7 +93,7 @@ const GeneralScreen = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <div className="mb-4 w-full">
+          <div className="mb-4 w-1/2 pr-2">
             <label htmlFor="gender" className="block font-bold mb-2 w-full">
               Gender:
             </label>
@@ -109,7 +109,7 @@ const GeneralScreen = () => {
               <option value="other">Other</option>
             </select>
           </div>
-          <div className="mb-4 w-full">
+          <div className="mb-4 w-1/2 pl-2">
             <label htmlFor="height" className="block font-bold mb-2 w-full">
               Height (cm): (1 foot = 30.48 cm)
             </label>
@@ -122,7 +122,7 @@ const GeneralScreen = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <div className="mb-4 w-full">
+          <div className="mb-4 w-1/2 pr-2">
             <label htmlFor="weight" className="block font-bold mb-2 w-full">
               Weight (kg):
             </label>
@@ -135,7 +135,7 @@ const GeneralScreen = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <div className="mb-4 w-full">
+          <div className="mb-4 w-1/2 pl-2">
             <label htmlFor="medicalHistory" className="block font-bold mb-2 w-full">
               Medical History:
             </label>
@@ -148,7 +148,7 @@ const GeneralScreen = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <div className="mb-4 w-full">
+          <div className="mb-4 w-1/2 pr-2">
             <label htmlFor="currentMedications" className="block font-bold mb-2 w-full">
               Current Medications:
             </label>
@@ -161,7 +161,7 @@ const GeneralScreen = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <div className="mb-4 w-full">
+          <div className="mb-4 w-1/2 pl-2">
             <label htmlFor="allergies" className="block font-bold mb-2 w-full">
               Allergies:
             </label>
@@ -174,7 +174,7 @@ const GeneralScreen = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <div className="mb-4 w-full flex items-center">
+          <div className="mb-4 w-1/2 pr-2 flex items-center">
             <label htmlFor="smoking" className="block font-bold mb-2 w-full">
               Smoking:
             </label>
@@ -189,7 +189,7 @@ const GeneralScreen = () => {
               <span>Do you smoke?</span>
             </div>
           </div>
-          <div className="mb-4 w-full">
+          <div className="mb-4 w-1/2 pl-2">
             <label htmlFor="alcohol" className="block font-bold mb-2 w-full">
               Alcohol Consumption:
             </label>
@@ -202,7 +202,7 @@ const GeneralScreen = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <div className="mb-4 w-full">
+          <div className="mb-4 w-1/2 pr-2">
             <label htmlFor="exercise" className="block font-bold mb-2 w-full">
               Exercise:
             </label>
@@ -215,7 +215,7 @@ const GeneralScreen = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <div className="mb-4 w-full">
+          <div className="mb-4 w-1/2 pl-2">
             <label htmlFor="diet" className="block font-bold mb-2 w-full">
               Diet:
             </label>
